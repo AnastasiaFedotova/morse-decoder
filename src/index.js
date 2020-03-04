@@ -41,7 +41,7 @@ const MORSE_TABLE = {
 
 
 function decode(expr) {
-    let morseSymbol = new Map([['00', ''], ['10', '.'], ['11', '-'], ['**********', ' ']]),
+    let morseSymbol = new Map([['10', '.'], ['11', '-']]),
         result = '',       
         letterMorse = '',
         stringMorse = [],
@@ -61,7 +61,8 @@ function decode(expr) {
         if(elem == '**********') result += ' ';
         else {
             for(i = 0; i < elem.length; i += 2) {
-                letter += morseSymbol.get(elem.substring(i, i + 2));
+                if(elem[i] + elem[i + 1] == "00") continue;
+                letter += morseSymbol.get(elem[i] + elem[i + 1]);
             }
             result += MORSE_TABLE[letter];
         }
